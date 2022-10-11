@@ -10,8 +10,8 @@ import getInstalledAppPath from "../../_utils/getInstalledAppPath";
 
 const scopes = ["offline_access", "Calendars.Read", "Calendars.ReadWrite"];
 
-let client_id = "";
-let client_secret = "";
+let client_id = "4412d288-66aa-478a-8a23-01ee1d6be4ef";
+let client_secret = "2Jw8Q~WSkkP4LN3tt7SI3-VWLGHEb8GlInk9qa.N";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { code } = req.query;

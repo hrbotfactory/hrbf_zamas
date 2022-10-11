@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgres://fwdrciiqxxfzby:8617f90669bc6709d4308373d0c125674ce21749549970a7dc2ae3c66aa996e1@ec2-54-228-201-167.eu-west-1.compute.amazonaws.com:5432/d5hem4q7vg8pfg"
 }
 
 generator client {

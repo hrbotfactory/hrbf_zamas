@@ -8,7 +8,7 @@ import getAppKeysFromSlug from "../../_utils/getAppKeysFromSlug";
 
 const scopes = ["User.Read", "Calendars.Read", "Calendars.ReadWrite", "offline_access"];
 
-let client_id = "";
+let client_id = "4412d288-66aa-478a-8a23-01ee1d6be4ef";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {

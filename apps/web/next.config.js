@@ -1,5 +1,4 @@
 require("dotenv").config({ path: "../../.env" });
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const withTM = require("next-transpile-modules")([
   "@calcom/app-store",
@@ -86,26 +85,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: !!process.env.CI,
   },
-  experimental: {
-    images: {
-      unoptimized: true,
-    },
-  },
   webpack: (config) => {
-    config.plugins.push(
-      new CopyWebpackPlugin({
-        patterns: [
-          {
-            from: "../../packages/app-store/**/static/**",
-            to({ context, absoluteFilename }) {
-              const appName = /app-store\/(.*)\/static/.exec(absoluteFilename);
-              return Promise.resolve(`${context}/public/app-store/${appName[1]}/[name][ext]`);
-            },
-          },
-        ],
-      })
-    );
-
     config.resolve.fallback = {
       ...config.resolve.fallback, // if you miss it, all the other options in fallback, specified
       // by next.js will be dropped. Doesn't make much sense, but how it is
@@ -149,11 +129,6 @@ const nextConfig = {
   },
   async redirects() {
     const redirects = [
-      {
-        source: "/api/app-store/:path*",
-        destination: "/app-store/:path*",
-        permanent: true,
-      },
       {
         source: "/settings",
         destination: "/settings/my-account/profile",
