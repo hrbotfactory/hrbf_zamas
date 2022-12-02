@@ -100,6 +100,7 @@ export default function Login({
 
   return (
     <>
+      {console.log("Llega al login")}
       <AuthContainer
         title={t("login")}
         description={t("login")}

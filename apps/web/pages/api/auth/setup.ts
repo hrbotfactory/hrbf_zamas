@@ -1,4 +1,3 @@
-import { IdentityProvider } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import z from "zod";
 
@@ -7,6 +6,7 @@ import { hashPassword } from "@calcom/lib/auth";
 import { HttpError } from "@calcom/lib/http-error";
 import { defaultHandler, defaultResponder } from "@calcom/lib/server";
 import slugify from "@calcom/lib/slugify";
+import { IdentityProvider } from "@calcom/lib/utils/types/IdentityProvider";
 import prisma from "@calcom/prisma";
 
 const querySchema = z.object({
@@ -47,7 +47,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       emailVerified: new Date(),
       locale: "en", // TODO: We should revisit this
       plan: "PRO",
-      identityProvider: IdentityProvider.CAL,
+      identityProvider: "CAL",
     },
   });
 

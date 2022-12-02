@@ -1,4 +1,4 @@
-import { WebhookTriggerEvents } from "@prisma/client";
+import { WebhookTriggerEvents } from "@calcom/lib/utils/types/WebhookTriggerEvents";
 
 // this is exported as we can't use `WebhookTriggerEvents` in the frontend straight-off
 

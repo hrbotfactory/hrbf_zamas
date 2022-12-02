@@ -33,6 +33,7 @@ export default function CalComAdapter(prismaClient: PrismaClient) {
       if (["GOOGLE", "SAML"].indexOf(provider) < 0) {
         return null;
       }
+      console.log("Aquí llega aaaaaaaaaaaaaaaaaaaaa");
       const obtainProvider = identityProviderNameMap[provider].toUpperCase() as IdentityProvider;
       const user = await prismaClient.user.findFirst({
         where: {

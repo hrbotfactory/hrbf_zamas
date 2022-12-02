@@ -1,6 +1,12 @@
 import * as z from "zod"
-import { WebhookTriggerEvents } from "@prisma/client"
+import * as imports from "../zod-utils"
 import { CompleteUser, UserModel, CompleteEventType, EventTypeModel, CompleteApp, AppModel } from "./index"
+
+// Helper schema for JSON fields
+type Literal = boolean | number | string
+type Json = Literal | { [key: string]: Json } | Json[]
+const literalSchema = z.union([z.string(), z.number(), z.boolean()])
+const jsonSchema: z.ZodSchema<Json> = z.lazy(() => z.union([literalSchema, z.array(jsonSchema), z.record(jsonSchema)]))
 
 export const _WebhookModel = z.object({
   id: z.string(),
@@ -10,7 +16,7 @@ export const _WebhookModel = z.object({
   payloadTemplate: z.string().nullish(),
   createdAt: z.date(),
   active: z.boolean(),
-  eventTriggers: z.nativeEnum(WebhookTriggerEvents).array(),
+  eventTriggers: jsonSchema,
   appId: z.string().nullish(),
   secret: z.string().nullish(),
 })

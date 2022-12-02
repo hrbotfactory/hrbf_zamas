@@ -1,4 +1,3 @@
-import { UserPlan } from "@prisma/client";
 import classNames from "classnames";
 import { GetServerSidePropsContext } from "next";
 import dynamic from "next/dynamic";
@@ -24,6 +23,7 @@ import defaultEvents, {
 import { useLocale } from "@calcom/lib/hooks/useLocale";
 import useTheme from "@calcom/lib/hooks/useTheme";
 import { collectPageParameters, telemetryEventTypes, useTelemetry } from "@calcom/lib/telemetry";
+import { UserPlan } from "@calcom/lib/utils/types/UserPlan";
 import prisma from "@calcom/prisma";
 import { baseEventTypeSelect } from "@calcom/prisma/selects";
 import { BadgeCheckIcon, Icon } from "@calcom/ui/Icon";

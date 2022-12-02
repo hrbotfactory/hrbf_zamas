@@ -102,6 +102,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
         tenant = ret.tenant;
         product = ret.product;
       } catch (e: any) {
+        console.log(e.message);
         error = e.message;
       }
     }

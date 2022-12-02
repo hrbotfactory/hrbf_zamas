@@ -1,5 +1,4 @@
-import type { EventTypeCustomInput } from "@prisma/client";
-import { PeriodType, Prisma, SchedulingType, UserPlan } from "@prisma/client";
+import type { Prisma, EventTypeCustomInput, UserPlan } from "@prisma/client";
 
 import { DailyLocationType } from "@calcom/app-store/locations";
 import { userSelect } from "@calcom/prisma/selects";
@@ -41,7 +40,7 @@ const user: User = {
   name: "John doe",
   avatar: "",
   destinationCalendar: null,
-  plan: UserPlan.PRO,
+  plan: "PRO",
   hideBranding: true,
   brandColor: "#797979",
   darkBrandColor: "#efefef",
@@ -57,7 +56,7 @@ const commons = {
   periodEndDate: null,
   beforeEventBuffer: 0,
   afterEventBuffer: 0,
-  periodType: PeriodType.UNLIMITED,
+  periodType: "UNLIMITED",
   periodDays: null,
   slotInterval: null,
   locations: [{ type: DailyLocationType }],
@@ -72,7 +71,7 @@ const commons = {
   availability: [],
   price: 0,
   currency: "usd",
-  schedulingType: SchedulingType.COLLECTIVE,
+  schedulingType: "COLLECTIVE",
   seatsPerTimeSlot: null,
   id: 0,
   hideCalendarNotes: false,

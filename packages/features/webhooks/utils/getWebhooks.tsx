@@ -1,5 +1,4 @@
-import { WebhookTriggerEvents } from "@prisma/client";
-
+import { WebhookTriggerEvents } from "@calcom/lib/utils/types/WebhookTriggerEvents";
 import prisma from "@calcom/prisma";
 
 export type GetSubscriberOptions = {
@@ -22,7 +21,7 @@ const getWebhooks = async (options: GetSubscriberOptions) => {
       ],
       AND: {
         eventTriggers: {
-          has: options.triggerEvent,
+          array_contains: options.triggerEvent,
         },
         active: {
           equals: true,

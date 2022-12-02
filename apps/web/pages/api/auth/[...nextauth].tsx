@@ -1,4 +1,3 @@
-import { IdentityProvider, UserPermissionRole } from "@prisma/client";
 import { readFileSync } from "fs";
 import Handlebars from "handlebars";
 import NextAuth, { Session } from "next-auth";
@@ -17,6 +16,8 @@ import { symmetricDecrypt } from "@calcom/lib/crypto";
 import { defaultCookies } from "@calcom/lib/default-cookies";
 import rateLimit from "@calcom/lib/rateLimit";
 import { serverConfig } from "@calcom/lib/serverConfig";
+import { IdentityProvider } from "@calcom/lib/utils/types/IdentityProvider";
+import { UserPermissionRole } from "@calcom/lib/utils/types/UserPermissionRole";
 import prisma from "@calcom/prisma";
 
 import { ErrorCode, verifyPassword } from "@lib/auth";
@@ -44,6 +45,7 @@ const providers: Provider[] = [
       totpCode: { label: "Two-factor Code", type: "input", placeholder: "Code from authenticator app" },
     },
     async authorize(credentials) {
+      console.log(credentials);
       if (!credentials) {
         console.error(`For some reason credentials are missing`);
         throw new Error(ErrorCode.InternalServerError);
@@ -251,7 +253,7 @@ export default NextAuth({
       // The arguments above are from the provider so we need to look up the
       // user based on those values in order to construct a JWT.
       if (account && account.type === "oauth" && account.provider && account.providerAccountId) {
-        let idP: IdentityProvider = IdentityProvider.GOOGLE;
+        let idP: typeof IdentityProvider = IdentityProvider.GOOGLE;
         if (account.provider === "saml") {
           idP = IdentityProvider.SAML;
         }

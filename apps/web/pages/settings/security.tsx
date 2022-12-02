@@ -1,8 +1,8 @@
-import { IdentityProvider } from "@prisma/client";
 import React from "react";
 
 import SAMLConfiguration from "@calcom/features/ee/common/components/SamlConfiguration";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
+import { IdentityProvider } from "@calcom/lib/utils/types/IdentityProvider";
 import { trpc } from "@calcom/trpc/react";
 
 import { identityProviderNameMap } from "@lib/auth";

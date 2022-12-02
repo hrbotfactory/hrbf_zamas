@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "postgresql"
-  url      = "postgres://fwdrciiqxxfzby:8617f90669bc6709d4308373d0c125674ce21749549970a7dc2ae3c66aa996e1@ec2-54-228-201-167.eu-west-1.compute.amazonaws.com:5432/d5hem4q7vg8pfg"
+  provider = "mysql"
+  url      = "mysql://root:root@localhost:9007/zamas"
 }
 
 generator client {
@@ -296,7 +296,7 @@ model Booking {
   recurringEventId      String?
   smsReminderNumber     String?
   workflowReminders     WorkflowReminder[]
-  scheduledJobs         String[]
+  scheduledJobs         Json?
 }
 
 model Schedule {
@@ -315,7 +315,7 @@ model Availability {
   userId      Int?
   eventType   EventType? @relation(fields: [eventTypeId], references: [id])
   eventTypeId Int?
-  days        Int[]
+  days        Json
   startTime   DateTime   @db.Time
   endTime     DateTime   @db.Time
   date        DateTime?  @db.Date
@@ -389,26 +389,18 @@ model Payment {
   externalId String      @unique
 }
 
-enum WebhookTriggerEvents {
-  BOOKING_CREATED
-  BOOKING_RESCHEDULED
-  BOOKING_CANCELLED
-  FORM_SUBMITTED
-  MEETING_ENDED
-}
-
 model Webhook {
-  id              String                 @id @unique
+  id              String     @id @unique
   userId          Int?
   eventTypeId     Int?
   subscriberUrl   String
   payloadTemplate String?
-  createdAt       DateTime               @default(now())
-  active          Boolean                @default(true)
-  eventTriggers   WebhookTriggerEvents[]
-  user            User?                  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  eventType       EventType?             @relation(fields: [eventTypeId], references: [id], onDelete: Cascade)
-  app             App?                   @relation(fields: [appId], references: [slug], onDelete: Cascade)
+  createdAt       DateTime   @default(now())
+  active          Boolean    @default(true)
+  eventTriggers   Json
+  user            User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventType       EventType? @relation(fields: [eventTypeId], references: [id], onDelete: Cascade)
+  app             App?       @relation(fields: [appId], references: [slug], onDelete: Cascade)
   appId           String?
   secret          String?
 
@@ -431,7 +423,7 @@ model ApiKey {
   createdAt  DateTime  @default(now())
   expiresAt  DateTime?
   lastUsedAt DateTime?
-  hashedKey  String    @unique()
+  hashedKey  String    @unique
   user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   app        App?      @relation(fields: [appId], references: [slug], onDelete: Cascade)
   appId      String?
@@ -439,7 +431,7 @@ model ApiKey {
 
 model HashedLink {
   id          Int       @id @default(autoincrement())
-  link        String    @unique()
+  link        String    @unique
   eventType   EventType @relation(fields: [eventTypeId], references: [id], onDelete: Cascade)
   eventTypeId Int       @unique
 }
@@ -483,15 +475,15 @@ enum AppCategories {
 
 model App {
   // The slug for the app store public page inside `/apps/[slug]`
-  slug        String          @id @unique
+  slug        String       @id @unique
   // The directory name for `/packages/app-store/[dirName]`
-  dirName     String          @unique
+  dirName     String       @unique
   // Needed API Keys
   keys        Json?
   // One or multiple categories to which this app belongs
-  categories  AppCategories[]
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
+  categories  Json
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   credentials Credential[]
   Webhook     Webhook[]
   ApiKey      ApiKey[]

@@ -2,7 +2,6 @@
  * @deprecated file is not used anymore
  * Use `/apps/web/pages/v2/event-types/index.tsx` instead
  */
-import { UserPlan } from "@prisma/client";
 import { Trans } from "next-i18next";
 import Head from "next/head";
 import Link from "next/link";
@@ -12,6 +11,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { CAL_URL, WEBAPP_URL } from "@calcom/lib/constants";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
 import showToast from "@calcom/lib/notification";
+import { UserPlan } from "@calcom/lib/utils/types/UserPlan";
 import { inferQueryOutput, trpc } from "@calcom/trpc/react";
 import { TRPCClientError } from "@calcom/trpc/react";
 import { Button } from "@calcom/ui";

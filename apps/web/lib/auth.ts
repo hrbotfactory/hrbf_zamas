@@ -1,7 +1,9 @@
-import { IdentityProvider } from "@prisma/client";
+// import { IdentityProvider } from "@prisma/client";
 import { compare, hash } from "bcryptjs";
 import { Session } from "next-auth";
 import { getSession as getSessionInner, GetSessionParams } from "next-auth/react";
+
+import { IdentityProvider } from "../../utils/types/IdentityProvider";
 
 /** @deprecated use the one from `@calcom/lib/auth` */
 export async function hashPassword(password: string) {

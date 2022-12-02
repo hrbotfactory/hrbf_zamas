@@ -1,6 +1,6 @@
-import { IdentityProvider } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+import { IdentityProvider } from "@calcom/lib/utils/types/IdentityProvider";
 import prisma from "@calcom/prisma";
 
 import { getSession } from "@lib/auth";

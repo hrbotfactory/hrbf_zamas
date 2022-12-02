@@ -60,13 +60,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       username,
       password: hashedPassword,
       emailVerified: new Date(Date.now()),
-      identityProvider: IdentityProvider.CAL,
+      identityProvider: "CAL",
     },
     create: {
       username,
       email: userEmail,
       password: hashedPassword,
-      identityProvider: IdentityProvider.CAL,
+      identityProvider: "CAL",
     },
   });
 

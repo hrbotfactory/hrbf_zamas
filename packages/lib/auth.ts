@@ -1,10 +1,11 @@
-import { IdentityProvider } from "@prisma/client";
 import { compare, hash } from "bcryptjs";
 import type { NextApiRequest } from "next";
 import type { Session } from "next-auth";
 import { getSession as getSessionInner, GetSessionParams } from "next-auth/react";
 
 import { HttpError } from "@calcom/lib/http-error";
+
+import { IdentityProvider } from "./utils/types/IdentityProvider";
 
 export async function hashPassword(password: string) {
   const hashedPassword = await hash(password, 12);

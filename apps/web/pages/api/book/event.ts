@@ -1,4 +1,4 @@
-import { BookingStatus, Credential, Prisma, SchedulingType, WebhookTriggerEvents } from "@prisma/client";
+import { BookingStatus, Credential, Prisma, SchedulingType } from "@prisma/client";
 import async from "async";
 import type { NextApiRequest } from "next";
 import { RRule } from "rrule";
@@ -29,6 +29,7 @@ import isOutOfBounds, { BookingDateInPastError } from "@calcom/lib/isOutOfBounds
 import logger from "@calcom/lib/logger";
 import { defaultResponder, getLuckyUser } from "@calcom/lib/server";
 import { updateWebUser as syncServicesUpdateWebUser } from "@calcom/lib/sync/SyncServiceManager";
+import { WebhookTriggerEvents } from "@calcom/lib/utils/types/WebhookTriggerEvents";
 import prisma, { userSelect } from "@calcom/prisma";
 import { extendedBookingCreateBody, requiredCustomInputSchema } from "@calcom/prisma/zod-utils";
 import type { BufferedBusyTime } from "@calcom/types/BufferedBusyTime";
@@ -815,7 +816,7 @@ async function handler(req: NextApiRequest) {
 
   log.debug(`Booking ${organizerUser.username} completed`);
 
-  const eventTrigger: WebhookTriggerEvents = rescheduleUid
+  const eventTrigger: typeof WebhookTriggerEvents = rescheduleUid
     ? WebhookTriggerEvents.BOOKING_RESCHEDULED
     : WebhookTriggerEvents.BOOKING_CREATED;
   const subscriberOptions = {
