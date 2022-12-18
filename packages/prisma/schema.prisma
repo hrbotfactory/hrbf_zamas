@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:root@localhost:9007/zamas"
+  url      = "mysql://admin:XukEJQuwea5Th3dDJJs@prod-hrbot-cluster-instance-1.c1jpkjydxv9s.eu-west-1.rds.amazonaws.com:3306/zamas"
 }
 
 generator client {

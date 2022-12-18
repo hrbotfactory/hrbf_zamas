@@ -1,0 +1,35 @@
+version: "3.5"
+
+services:
+
+#  mysql:
+#    image: mysql:5.7
+#    container_name: zamas-mysql
+#    working_dir: /application
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_DATABASE=zamas
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
+#    restart: always
+#    networks:
+#      - hrbf_zamas
+#    volumes:
+#      - ./dbdump:/docker-entrypoint-initdb.d
+#    ports:
+#      - "9006:3306"
+
+  next:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zamas_next
+    ports:
+      - "3000:3000"
+    networks:
+      - hrbf_zamas
+
+networks:
+  hrbf_zamas:
+    name: hrbf-zamas
+    driver: bridge

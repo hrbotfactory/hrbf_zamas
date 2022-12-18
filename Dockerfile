@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16.13.0
 
 RUN mkdir -p /app
 
@@ -6,18 +6,20 @@ WORKDIR /app
 
 COPY package.json /app
 
-RUN echo node -v
-
-RUN yarn
+COPY turbo.json /app
 
 COPY . /app
 
+RUN yarn install
 
-
-RUN yarn build
+COPY package.json yarn.lock turbo.json /app/
+COPY packages ./app/packages
+COPY apps/web ./app/apps/web
+COPY packages/prisma/schema.prisma ./app/prisma/schema.prisma
 
 EXPOSE 3000
 
-CMD [ "yarn", "start" ]
+CMD ["yarn", "dev"]
+
 
 
