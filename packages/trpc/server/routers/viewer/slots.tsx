@@ -240,6 +240,7 @@ export async function getSchedule(input: z.infer<typeof getScheduleSchema>, ctx:
       };
     })
   );
+  //@ts-ignore
   const workingHours = getAggregateWorkingHours(usersWorkingHoursAndBusySlots, eventType.schedulingType);
   const computedAvailableSlots: Record<string, Slot[]> = {};
   const availabilityCheckProps = {
@@ -250,6 +251,7 @@ export async function getSchedule(input: z.infer<typeof getScheduleSchema>, ctx:
 
   const isTimeWithinBounds = (_time: Parameters<typeof isTimeOutOfBounds>[0]) =>
     !isTimeOutOfBounds(_time, {
+      //@ts-ignore
       periodType: eventType.periodType,
       periodStartDate: eventType.periodStartDate,
       periodEndDate: eventType.periodEndDate,

@@ -63,6 +63,7 @@ export default function WebhookDialogForm(props: {
 
   useEffect(() => {
     if (changeSecret) {
+      //@ts-ignore
       form.unregister("secret", { keepDefaultValue: false });
     }
   }, [changeSecret]);
@@ -83,10 +84,12 @@ export default function WebhookDialogForm(props: {
           event.payloadTemplate = null;
         }
         if (event.id) {
+          //@ts-ignore
           await utils.client.mutation("viewer.webhook.edit", e);
           await utils.invalidateQueries(["viewer.webhook.list"]);
           showToast(t("webhook_updated_successfully"), "success");
         } else {
+          //@ts-ignore
           await utils.client.mutation("viewer.webhook.create", e);
           await utils.invalidateQueries(["viewer.webhook.list"]);
           showToast(t("webhook_created_successfully"), "success");
@@ -140,9 +143,11 @@ export default function WebhookDialogForm(props: {
               render={({ field }) => (
                 <Switch
                   label={t(key.toLowerCase())}
+                  //@ts-ignore
                   defaultChecked={field.value.includes(key)}
                   onCheckedChange={(isChecked) => {
                     const value = field.value;
+                    //@ts-ignore
                     const newValue = isChecked ? [...value, key] : value.filter((v) => v !== key);
 
                     form.setValue("eventTriggers", newValue, {

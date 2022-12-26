@@ -2,10 +2,10 @@ import {
   BookingStatus,
   Prisma,
   PrismaPromise,
-  WebhookTriggerEvents,
   WorkflowMethods,
   WorkflowReminder,
 } from "@prisma/client";
+import { WebhookTriggerEvents } from "@calcom/lib/utils/types/WebhookTriggerEvents";
 import { NextApiRequest, NextApiResponse } from "next";
 import z from "zod";
 
@@ -163,6 +163,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     cancellationReason: cancellationReason,
   };
   // Hook up the webhook logic here
+  //@ts-ignore
   const eventTrigger: WebhookTriggerEvents = "BOOKING_CANCELLED";
   // Send Webhook call if hooked to BOOKING.CANCELLED
   const subscriberOptions = {
@@ -237,6 +238,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         scheduledJobs: true,
       },
     });
+    //@ts-ignore
     updatedBookings = updatedBookings.concat(allUpdatedBookings);
   } else {
     const updatedBooking = await prisma.booking.update({
@@ -253,6 +255,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         scheduledJobs: true,
       },
     });
+    //@ts-ignore
     updatedBookings.push(updatedBooking);
   }
 

@@ -4,6 +4,7 @@ import prisma from "@calcom/prisma";
 export type GetSubscriberOptions = {
   userId: number;
   eventTypeId: number;
+  //@ts-ignore
   triggerEvent: WebhookTriggerEvents;
 };
 

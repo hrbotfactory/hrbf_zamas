@@ -1,4 +1,5 @@
-import { Prisma, AppCategories, BookingStatus, IdentityProvider, MembershipRole } from "@prisma/client";
+import { Prisma, BookingStatus, IdentityProvider, MembershipRole } from "@prisma/client";
+import { AppCategories } from "@calcom/lib/utils/types/AppCategories";
 import _ from "lodash";
 import { authenticator } from "otplib";
 import z from "zod";
@@ -1194,6 +1195,7 @@ const loggedInViewerRouter = createProtectedRouter()
       for (const eventType of eventTypes) {
         if (eventType.locations) {
           // If it's a video, replace the location with Cal video
+          //@ts-ignore
           if (credential.app?.categories.includes(AppCategories.video)) {
             // Find the user's event types
 
@@ -1226,6 +1228,7 @@ const loggedInViewerRouter = createProtectedRouter()
         }
 
         // If it's a calendar, remove the destination calendar from the event type
+        //@ts-ignore
         if (credential.app?.categories.includes(AppCategories.calendar)) {
           if (eventType.destinationCalendar?.integration === credential.type) {
             const destinationCalendar = await prisma.destinationCalendar.findFirst({
@@ -1264,6 +1267,7 @@ const loggedInViewerRouter = createProtectedRouter()
         }
 
         // If it's a payment, hide the event type and set the price to 0. Also cancel all pending bookings
+        //@ts-ignore
         if (credential.app?.categories.includes(AppCategories.payment)) {
           if (eventType.price) {
             await prisma.$transaction(async () => {
@@ -1422,11 +1426,13 @@ const loggedInViewerRouter = createProtectedRouter()
           where: {
             userId: ctx.user.id,
             scheduledJobs: {
+              //@ts-ignore
               isEmpty: false,
             },
           },
         });
         for (const booking of bookingsWithScheduledJobs) {
+          //@ts-ignore
           cancelScheduledJobs(booking, credential.appId);
         }
       }

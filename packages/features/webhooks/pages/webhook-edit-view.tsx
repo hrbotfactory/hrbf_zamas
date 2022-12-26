@@ -58,6 +58,7 @@ const EditWebhook = () => {
           backButton
         />
         <WebhookForm
+          //@ts-ignore
           webhook={webhook}
           onSubmit={(values: WebhookFormSubmitData) => {
             if (subscriberUrlReserved(values.subscriberUrl, webhook.id)) {

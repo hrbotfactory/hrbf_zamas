@@ -70,6 +70,7 @@ export const AvailabilityTab = () => {
   const { isLoading, data: schedule } = trpc.useQuery(["viewer.availability.schedule", { scheduleId }]);
 
   const filterDays = (dayNum: number) =>
+    //@ts-ignore
     schedule?.schedule.availability.filter((item) => item.days.includes((dayNum + 1) % 7)) || [];
 
   return (

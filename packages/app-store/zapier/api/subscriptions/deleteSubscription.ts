@@ -1,4 +1,4 @@
-import { WebhookTriggerEvents } from "@prisma/client";
+import { WebhookTriggerEvents } from "@calcom/lib/utils/types/WebhookTriggerEvents";
 import type { NextApiRequest, NextApiResponse } from "next";
 import z from "zod";
 
@@ -29,18 +29,21 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       id,
     },
   });
-
+  //@ts-ignore
   if (webhook?.eventTriggers.includes(WebhookTriggerEvents.MEETING_ENDED)) {
     const bookingsWithScheduledJobs = await prisma.booking.findMany({
       where: {
         userId: validKey.userId,
         scheduledJobs: {
+          //@ts-ignore
           isEmpty: false,
         },
       },
     });
     for (const booking of bookingsWithScheduledJobs) {
+      //@ts-ignore
       const updatedScheduledJobs = booking.scheduledJobs.filter(
+        //@ts-ignore
         (scheduledJob) => scheduledJob !== `zapier_${webhook.id}`
       );
       await prisma.booking.update({

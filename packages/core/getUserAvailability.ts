@@ -152,6 +152,7 @@ export async function getUserAvailability(
   const timeZone = schedule.timeZone || eventType?.timeZone || currentUser.timeZone;
   const workingHours = getWorkingHours(
     { timeZone },
+    //@ts-ignore
     schedule.availability ||
       (eventType?.availability.length ? eventType.availability : currentUser.availability)
   );

@@ -524,6 +524,7 @@ const AvailabilityPage = ({ profile, eventType }: Props) => {
                         ].indexOf(profile.weekStart) as 0 | 1 | 2 | 3 | 4 | 5 | 6)
                       : profile.weekStart /* Allows providing weekStart as number */
                   }
+                  //@ts-ignore
                   eventType={eventType}
                   timeFormat={timeFormat}
                   timeZone={timeZone}

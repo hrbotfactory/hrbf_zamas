@@ -110,6 +110,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     {
       timeZone,
     },
+    //@ts-ignore
     eventType.schedule?.availability || eventType.availability
   );
 

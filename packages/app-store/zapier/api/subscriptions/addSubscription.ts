@@ -1,4 +1,5 @@
-import { BookingStatus, WebhookTriggerEvents } from "@prisma/client";
+import { BookingStatus } from "@prisma/client";
+import { WebhookTriggerEvents } from "@calcom/lib/utils/types/WebhookTriggerEvents";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 } from "uuid";
 
@@ -47,6 +48,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       });
 
       for (const booking of bookings) {
+        //@ts-ignore
         scheduleTrigger(booking, createSubscription.subscriberUrl, {
           id: createSubscription.id,
           appId: createSubscription.appId,

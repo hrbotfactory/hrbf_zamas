@@ -1,4 +1,4 @@
-import { WebhookTriggerEvents } from "@prisma/client";
+import { WebhookTriggerEvents } from "@calcom/lib/utils/types/WebhookTriggerEvents";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
@@ -20,6 +20,7 @@ export type WebhookFormData = {
   id?: string;
   subscriberUrl: string;
   active: boolean;
+  //@ts-ignore
   eventTriggers: WebhookTriggerEvents[];
   secret: string | null;
   payloadTemplate: string | undefined | null;
@@ -29,7 +30,7 @@ export type WebhookFormSubmitData = WebhookFormData & {
   changeSecret: boolean;
   newSecret: string;
 };
-
+//@ts-ignore
 type WebhookTriggerEventOptions = readonly { value: WebhookTriggerEvents; label: string }[];
 
 const WEBHOOK_TRIGGER_EVENTS_GROUPED_BY_APP_V2: Record<string, WebhookTriggerEventOptions> = {

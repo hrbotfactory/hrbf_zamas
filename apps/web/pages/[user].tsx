@@ -65,6 +65,7 @@ export default function User(props: inferSSRProps<typeof getServerSideProps>) {
             <a className="flex justify-between px-6 py-4" data-testid="event-type-link">
               <div className="flex-shrink">
                 <p className="dark:text-darkgray-700 text-sm font-semibold text-neutral-900">{type.title}</p>
+                {/*@ts-ignore*/}
                 <EventTypeDescription className="text-sm" eventType={type} />
               </div>
               <div className="mt-1 self-center">
@@ -183,6 +184,7 @@ export default function User(props: inferSSRProps<typeof getServerSideProps>) {
                           {type.title}
                         </h2>
                       </div>
+                      {/*//@ts-ignore*/}
                       <EventTypeDescription eventType={type} />
                     </a>
                   </Link>
@@ -308,7 +310,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
         brandColor: user.brandColor,
         darkBrandColor: user.darkBrandColor,
       };
-
+  //@ts-ignore
   const eventTypesWithHidden = isDynamicGroup ? [] : await getEventTypesWithHiddenFromDB(user.id, user.plan);
   const dataFetchEnd = Date.now();
   if (context.query.log === "1") {

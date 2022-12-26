@@ -422,6 +422,7 @@ export const bookingsRouter = createProtectedRouter()
             });
           });
           const updatedBookingsResult = await Promise.all(updateBookingsPromise);
+          //@ts-ignore
           updatedBookings = updatedBookings.concat(updatedBookingsResult);
         } else {
           // @NOTE: be careful with this as if any error occurs before this booking doesn't get confirmed
@@ -458,6 +459,7 @@ export const bookingsRouter = createProtectedRouter()
               scheduledJobs: true,
             },
           });
+          //@ts-ignore
           updatedBookings.push(updatedBooking);
         }
 

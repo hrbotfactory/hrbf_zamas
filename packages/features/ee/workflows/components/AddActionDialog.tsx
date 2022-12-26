@@ -88,6 +88,7 @@ export const AddActionDialog = (props: IAddActionDialog) => {
                         defaultValue={actionOptions[0]}
                         onChange={(val) => {
                           if (val) {
+                            //@ts-ignore
                             form.setValue("action", val.value);
                             if (val.value === WorkflowActions.SMS_NUMBER) {
                               setIsPhoneNumberNeeded(true);

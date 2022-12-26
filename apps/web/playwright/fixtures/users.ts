@@ -260,6 +260,7 @@ const createUser = async (
     completedOnboarding: opts?.completedOnboarding ?? true,
     timeZone: opts?.timeZone ?? dayjs.tz.guess(),
     locale: opts?.locale ?? "en",
+    //@ts-ignore
     schedules:
       opts?.completedOnboarding ?? true
         ? {

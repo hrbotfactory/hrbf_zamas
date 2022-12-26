@@ -3,7 +3,7 @@ import { InferGetStaticPropsType, NextPageContext } from "next";
 import { getAppRegistry, getAppRegistryWithCredentials } from "@calcom/app-store/_appRegistry";
 import { getSession } from "@calcom/lib/auth";
 import { useLocale } from "@calcom/lib/hooks/useLocale";
-import type { AppCategories } from "@calcom/prisma/client";
+import { AppCategories } from "@calcom/lib/utils/types/AppCategories";
 import AllApps from "@calcom/ui/v2/core/apps/AllApps";
 import AppStoreCategories from "@calcom/ui/v2/core/apps/Categories";
 import TrendingAppsSlider from "@calcom/ui/v2/core/apps/TrendingAppsSlider";
@@ -43,7 +43,9 @@ export const getServerSideProps = async (context: NextPageContext) => {
   return {
     props: {
       categories: Object.entries(categories)
+        //@ts-ignore
         .map(([name, count]): { name: AppCategories; count: number } => ({
+          //@ts-ignore
           name: name as AppCategories,
           count,
         }))

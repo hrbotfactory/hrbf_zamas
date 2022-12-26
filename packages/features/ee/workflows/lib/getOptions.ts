@@ -20,6 +20,7 @@ export function getWorkflowTriggerOptions(t: TFunction) {
 
 export function getWorkflowTimeUnitOptions(t: TFunction) {
   return TIME_UNIT.map((timeUnit) => {
+    //@ts-ignore
     return { label: t(`${timeUnit.toLowerCase()}_timeUnit`), value: timeUnit };
   });
 }

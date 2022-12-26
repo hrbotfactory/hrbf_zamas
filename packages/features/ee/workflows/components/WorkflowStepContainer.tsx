@@ -174,6 +174,7 @@ export default function WorkflowStepContainer(props: WorkflowStepProps) {
                       }
                     }}
                     defaultValue={selectedTrigger}
+                    // @ts-ignore
                     options={triggerOptions}
                   />
                 );
@@ -203,6 +204,7 @@ export default function WorkflowStepContainer(props: WorkflowStepProps) {
                             className="block min-w-0 flex-1 rounded-sm text-sm"
                             onChange={(val) => {
                               if (val) {
+                                //@ts-ignore
                                 form.setValue("timeUnit", val.value);
                               }
                             }}
@@ -281,6 +283,7 @@ export default function WorkflowStepContainer(props: WorkflowStepProps) {
                           }
                         }}
                         defaultValue={selectedAction}
+                        // @ts-ignore
                         options={actionOptions}
                       />
                     );
@@ -391,6 +394,7 @@ export default function WorkflowStepContainer(props: WorkflowStepProps) {
                           }
                         }}
                         defaultValue={selectedTemplate}
+                        //@ts-ignore
                         options={templateOptions}
                       />
                     );

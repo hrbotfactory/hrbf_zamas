@@ -4,9 +4,9 @@ import {
   BookingReference,
   BookingStatus,
   EventType,
-  User,
-  WebhookTriggerEvents,
+  User
 } from "@prisma/client";
+import { WebhookTriggerEvents } from "@calcom/lib/utils/types/WebhookTriggerEvents";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import type { TFunction } from "next-i18next";
@@ -245,6 +245,7 @@ const handler = async (
       };
 
       // Send webhook
+      //@ts-ignore
       const eventTrigger: WebhookTriggerEvents = "BOOKING_CANCELLED";
       // Send Webhook call if hooked to BOOKING.CANCELLED
       const subscriberOptions = {

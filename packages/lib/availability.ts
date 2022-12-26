@@ -39,6 +39,7 @@ export function getAvailabilityFromSchedule(schedule: Schedule): Availability[] 
             schedule.endTime.toString() === time.end.toString()
         )) !== -1
       ) {
+        //@ts-ignore
         availability[idx].days.push(day);
         return false;
       }
@@ -125,7 +126,9 @@ export function availabilityAsString(
   { locale, hour12 }: { locale?: string; hour12?: boolean }
 ) {
   const weekSpan = (availability: Availability) => {
+    //@ts-ignore
     const days = availability.days.slice(1).reduce(
+      //@ts-ignore
       (days, day) => {
         if (days[days.length - 1].length === 1 && days[days.length - 1][0] === day - 1) {
           // append if the range is not complete (but the next day needs adding)
@@ -139,9 +142,11 @@ export function availabilityAsString(
         }
         return days;
       },
+      //@ts-ignore
       [[availability.days[0]]] as number[][]
     );
     return days
+      //@ts-ignore
       .map((dayRange) => dayRange.map((day) => nameOfDay(locale, day, "short")).join(" - "))
       .join(", ");
   };

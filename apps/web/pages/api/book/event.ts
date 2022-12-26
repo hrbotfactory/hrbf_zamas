@@ -269,6 +269,7 @@ async function handler(req: NextApiRequest) {
   let timeOutOfBounds = false;
   try {
     timeOutOfBounds = isOutOfBounds(reqBody.start, {
+      //@ts-ignore
       periodType: eventType.periodType,
       periodDays: eventType.periodDays,
       periodEndDate: eventType.periodEndDate,
@@ -330,6 +331,7 @@ async function handler(req: NextApiRequest) {
 
   if (!eventType.seatsPerTimeSlot) {
     const availableUsers = await ensureAvailableUsers(
+      //@ts-ignore
       {
         ...eventType,
         users,
@@ -816,7 +818,8 @@ async function handler(req: NextApiRequest) {
 
   log.debug(`Booking ${organizerUser.username} completed`);
 
-  const eventTrigger: typeof WebhookTriggerEvents = rescheduleUid
+  //@ts-ignore
+  const eventTrigger: WebhookTriggerEvents = rescheduleUid
     ? WebhookTriggerEvents.BOOKING_RESCHEDULED
     : WebhookTriggerEvents.BOOKING_CREATED;
   const subscriberOptions = {
@@ -835,9 +838,11 @@ async function handler(req: NextApiRequest) {
 
   subscribersMeetingEnded.forEach((subscriber) => {
     if (rescheduleUid && originalRescheduledBooking) {
+      //@ts-ignore
       cancelScheduledJobs(originalRescheduledBooking);
     }
     if (booking && booking.status === BookingStatus.ACCEPTED) {
+      //@ts-ignore
       scheduleTrigger(booking, subscriber.subscriberUrl, subscriber);
     }
   });

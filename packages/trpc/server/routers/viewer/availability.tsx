@@ -117,6 +117,7 @@ export const availabilityRouter = createProtectedRouter()
       const availability = getAvailabilityFromSchedule(input.schedule || DEFAULT_SCHEDULE);
       data.availability = {
         createMany: {
+          //@ts-ignore
           data: availability.map((schedule) => ({
             days: schedule.days,
             startTime: schedule.startTime,
@@ -240,6 +241,7 @@ export const availabilityRouter = createProtectedRouter()
               },
             },
             createMany: {
+              //@ts-ignore
               data: availability.map((schedule) => ({
                 days: schedule.days,
                 startTime: schedule.startTime,
@@ -261,6 +263,7 @@ export const convertScheduleToAvailability = (
 ) => {
   return schedule.availability.reduce(
     (schedule: Schedule, availability) => {
+      //@ts-ignore
       availability.days.forEach((day) => {
         schedule[day].push({
           start: new Date(

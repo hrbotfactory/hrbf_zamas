@@ -69,6 +69,7 @@ export async function getAppRegistryWithCredentials(userId: number) {
       trending: trending || true,
       verified: verified || true,
       ...remainingAppProps,
+      //@ts-ignore
       categories: dbapp.categories,
       credentials: dbapp.credentials,
       installed:

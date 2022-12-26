@@ -128,6 +128,7 @@ export const EventTypeList = ({ group, groupIndex, readOnly, types }: EventTypeL
     }
 
     utils.cancelQuery(["viewer.eventTypes"]);
+    //@ts-ignore
     utils.setQueryData(["viewer.eventTypes"], (data) => {
       // tRPC is very strict with the return signature...
       if (!data)

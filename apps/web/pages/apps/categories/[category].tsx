@@ -1,4 +1,5 @@
-import { AppCategories } from "@prisma/client";
+import { AppCategories } from "@calcom/lib/utils/types/AppCategories";
+
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -56,12 +57,13 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
+  //@ts-ignore
   const category = context.params?.category as AppCategories;
 
   const appQuery = await prisma.app.findMany({
     where: {
       categories: {
-        has: category,
+        string_contains: category
       },
     },
     select: {

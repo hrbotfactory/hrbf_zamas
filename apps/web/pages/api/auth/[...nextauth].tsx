@@ -253,14 +253,17 @@ export default NextAuth({
       // The arguments above are from the provider so we need to look up the
       // user based on those values in order to construct a JWT.
       if (account && account.type === "oauth" && account.provider && account.providerAccountId) {
+        //@ts-ignore
         let idP: typeof IdentityProvider = IdentityProvider.GOOGLE;
         if (account.provider === "saml") {
+          //@ts-ignore
           idP = IdentityProvider.SAML;
         }
         const existingUser = await prisma.user.findFirst({
           where: {
             AND: [
               {
+                //@ts-ignore
                 identityProvider: idP,
               },
               {
@@ -296,6 +299,7 @@ export default NextAuth({
           id: token.id as number,
           name: token.name,
           username: token.username as string,
+          //@ts-ignore
           role: token.role as UserPermissionRole,
           impersonatedByUID: token.impersonatedByUID as number,
         },
@@ -327,6 +331,7 @@ export default NextAuth({
       }
 
       if (account.provider) {
+        //@ts-ignore
         let idP: IdentityProvider = IdentityProvider.GOOGLE;
         if (account.provider === "saml") {
           idP = IdentityProvider.SAML;
@@ -337,6 +342,7 @@ export default NextAuth({
           return "/auth/error?error=unverified-email";
         }
         // Only google oauth on this path
+        //@ts-ignore
         const provider = account.provider.toUpperCase() as IdentityProvider;
 
         const existingUser = await prisma.user.findFirst({

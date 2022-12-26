@@ -33,6 +33,7 @@ export const getStaticProps = async () => {
     },
   });
   const categories = categoryQuery.reduce((c, app) => {
+    //@ts-ignore
     for (const category of app.categories) {
       c[category] = c[category] ? c[category] + 1 : 1;
     }

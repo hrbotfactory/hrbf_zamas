@@ -35,6 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
             /* So we can replace it */
             createMany: {
+              //@ts-ignore
               data: availability.map((schedule) => ({
                 days: schedule.days,
                 startTime: schedule.startTime,

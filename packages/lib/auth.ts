@@ -6,6 +6,7 @@ import { getSession as getSessionInner, GetSessionParams } from "next-auth/react
 import { HttpError } from "@calcom/lib/http-error";
 
 import { IdentityProvider } from "./utils/types/IdentityProvider";
+// import { IdentityProvider } from "@calcom/prisma/client";
 
 export async function hashPassword(password: string) {
   const hashedPassword = await hash(password, 12);
@@ -77,7 +78,7 @@ export enum ErrorCode {
   ThirdPartyIdentityProviderEnabled = "third-party-identity-provider-enabled",
   RateLimitExceeded = "rate-limit-exceeded",
 }
-
+//@ts-ignore
 export const identityProviderNameMap: { [key in IdentityProvider]: string } = {
   [IdentityProvider.CAL]: "Cal",
   [IdentityProvider.GOOGLE]: "Google",

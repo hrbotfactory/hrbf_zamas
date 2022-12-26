@@ -1,4 +1,5 @@
-import { Prisma, WebhookTriggerEvents } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+import { WebhookTriggerEvents } from "@calcom/lib/utils/types/WebhookTriggerEvents";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 

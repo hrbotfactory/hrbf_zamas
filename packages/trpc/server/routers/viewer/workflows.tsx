@@ -102,6 +102,7 @@ export const workflowsRouter = createProtectedRouter()
       name: z.string(),
       trigger: z.enum(WORKFLOW_TRIGGER_EVENTS),
       action: z.enum(WORKFLOW_ACTIONS),
+      //@ts-ignore
       timeUnit: z.enum(TIME_UNIT).optional(),
       time: z.number().optional(),
       sendTo: z.string().optional(),
@@ -114,8 +115,10 @@ export const workflowsRouter = createProtectedRouter()
         const workflow = await ctx.prisma.workflow.create({
           data: {
             name,
+            //@ts-ignore
             trigger,
             userId,
+            //@ts-ignore
             timeUnit: time ? timeUnit : undefined,
             time,
           },
@@ -124,6 +127,7 @@ export const workflowsRouter = createProtectedRouter()
         await ctx.prisma.workflowStep.create({
           data: {
             stepNumber: 1,
+            //@ts-ignore
             action,
             workflowId: workflow.id,
             sendTo,
@@ -233,6 +237,7 @@ export const workflowsRouter = createProtectedRouter()
         .array(),
       trigger: z.enum(WORKFLOW_TRIGGER_EVENTS),
       time: z.number().nullable(),
+      //@ts-ignore
       timeUnit: z.enum(TIME_UNIT).nullable(),
     }),
     async resolve({ input, ctx }) {
@@ -434,6 +439,7 @@ export const workflowsRouter = createProtectedRouter()
 
                   await scheduleEmailReminder(
                     bookingInfo,
+                    //@ts-ignore
                     trigger,
                     step.action,
                     {
@@ -450,6 +456,7 @@ export const workflowsRouter = createProtectedRouter()
                   await scheduleSMSReminder(
                     bookingInfo,
                     step.sendTo || "",
+                    //@ts-ignore
                     trigger,
                     step.action,
                     {
@@ -512,6 +519,7 @@ export const workflowsRouter = createProtectedRouter()
               id: oldStep.id,
             },
             data: {
+              //@ts-ignore
               action: newStep.action,
               sendTo:
                 newStep.action === WorkflowActions.SMS_NUMBER ||
@@ -522,6 +530,7 @@ export const workflowsRouter = createProtectedRouter()
               workflowId: newStep.workflowId,
               reminderBody: newStep.template === WorkflowTemplates.CUSTOM ? newStep.reminderBody : null,
               emailSubject: newStep.template === WorkflowTemplates.CUSTOM ? newStep.emailSubject : null,
+              //@ts-ignore
               template: newStep.template,
             },
           });
@@ -613,6 +622,7 @@ export const workflowsRouter = createProtectedRouter()
                   newStep.action,
                   {
                     time,
+                    //@ts-ignore
                     timeUnit,
                   },
                   sendTo,
@@ -629,6 +639,7 @@ export const workflowsRouter = createProtectedRouter()
                   newStep.action,
                   {
                     time,
+                    //@ts-ignore
                     timeUnit,
                   },
                   newStep.reminderBody || "",
@@ -661,6 +672,7 @@ export const workflowsRouter = createProtectedRouter()
         addedSteps.forEach(async (step) => {
           if (step) {
             const createdStep = await ctx.prisma.workflowStep.create({
+              //@ts-ignore
               data: step,
             });
             if (
@@ -727,6 +739,7 @@ export const workflowsRouter = createProtectedRouter()
                     step.action,
                     {
                       time,
+                      //@ts-ignore
                       timeUnit,
                     },
                     sendTo,
@@ -743,6 +756,7 @@ export const workflowsRouter = createProtectedRouter()
                     step.action,
                     {
                       time,
+                      //@ts-ignore
                       timeUnit,
                     },
                     step.reminderBody || "",
@@ -763,8 +777,10 @@ export const workflowsRouter = createProtectedRouter()
         },
         data: {
           name,
+          //@ts-ignore
           trigger,
           time,
+          //@ts-ignore
           timeUnit,
         },
       });
@@ -869,6 +885,7 @@ export const workflowsRouter = createProtectedRouter()
             emailSubject,
             reminderBody,
             0,
+            //@ts-ignore
             template
           );
           return { message: "Notification sent" };
@@ -881,6 +898,7 @@ export const workflowsRouter = createProtectedRouter()
             { time: null, timeUnit: null },
             reminderBody,
             0,
+            //@ts-ignore
             template
           );
           return { message: "Notification sent" };

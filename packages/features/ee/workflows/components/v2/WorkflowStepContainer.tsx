@@ -179,6 +179,7 @@ export default function WorkflowStepContainer(props: WorkflowStepProps) {
                       }
                     }}
                     defaultValue={selectedTrigger}
+                    //@ts-ignore
                     options={triggerOptions}
                   />
                 );
@@ -299,6 +300,7 @@ export default function WorkflowStepContainer(props: WorkflowStepProps) {
                           }
                         }}
                         defaultValue={selectedAction}
+                        //@ts-ignore
                         options={actionOptions}
                       />
                     );
@@ -357,6 +359,7 @@ export default function WorkflowStepContainer(props: WorkflowStepProps) {
                           }
                         }}
                         defaultValue={selectedTemplate}
+                        //@ts-ignore
                         options={templateOptions}
                       />
                     );

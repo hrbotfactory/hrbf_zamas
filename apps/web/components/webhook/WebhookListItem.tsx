@@ -36,6 +36,7 @@ export default function WebhookListItem(props: { webhook: TWebhook; onEditWebhoo
           </div>
           <div className="mt-2 flex">
             <span className="flex flex-col space-x-2 space-y-1 text-xs sm:flex-row sm:space-y-0 sm:rtl:space-x-reverse">
+              {/*@ts-ignore*/}
               {props.webhook.eventTriggers.map((eventTrigger, ind) => (
                 <span
                   key={ind}

@@ -47,6 +47,7 @@ export function NewWorkflowButton() {
     trigger: z.enum(WORKFLOW_TRIGGER_EVENTS),
     action: z.enum(WORKFLOW_ACTIONS),
     time: z.number().min(1).optional(),
+    //@ts-ignore
     timeUnit: z.enum(TIME_UNIT).optional(),
     sendTo: z
       .string()
@@ -121,6 +122,7 @@ export function NewWorkflowButton() {
                       className="block w-full min-w-0 flex-1 rounded-sm text-sm"
                       onChange={(val) => {
                         if (val) {
+                          //@ts-ignore
                           form.setValue("trigger", val.value);
                           form.clearErrors("trigger");
                           if (val.value === WorkflowTriggerEvents.BEFORE_EVENT) {
@@ -165,6 +167,7 @@ export function NewWorkflowButton() {
                             className="block min-w-0 flex-1 rounded-sm text-sm"
                             onChange={(val) => {
                               if (val) {
+                                //@ts-ignore
                                 form.setValue("timeUnit", val.value);
                               }
                             }}
@@ -192,6 +195,7 @@ export function NewWorkflowButton() {
                       className="block w-full min-w-0 flex-1 rounded-sm text-sm"
                       onChange={(val) => {
                         if (val) {
+                          //@ts-ignore
                           form.setValue("action", val.value);
                           form.clearErrors("action");
                           if (val.value === WorkflowActions.SMS_NUMBER) {

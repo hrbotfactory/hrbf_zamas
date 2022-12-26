@@ -59,7 +59,9 @@ export const TimeTimeUnitInput = (props: Props) => {
                   type="button"
                   className="h-8 w-20 justify-start pl-3 text-left text-sm"
                   onClick={() => {
+                    //@ts-ignore
                     setTimeUnit(option.value);
+                    //@ts-ignore
                     form.setValue("timeUnit", option.value);
                   }}>
                   {option.label}
