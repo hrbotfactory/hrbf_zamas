@@ -105,10 +105,10 @@ RUN apt-get update && \
     npm install --global prisma
 
 COPY package.json yarn.lock turbo.json ./
-COPY /node_modules ./node_modules
-COPY /packages ./packages
-COPY /apps/web ./apps/web
-COPY /packages/prisma/schema.prisma ./prisma/schema.prisma
+COPY --from=builder /node_modules ./node_modules
+COPY --from=builder /packages ./packages
+COPY --from=builder /apps/web ./apps/web
+COPY --from=builder /packages/prisma/schema.prisma ./prisma/schema.prisma
 COPY scripts scripts
 
 # Save value used during this build stage. If NEXT_PUBLIC_WEBAPP_URL and BUILT_NEXT_PUBLIC_WEBAPP_URL differ at
@@ -119,5 +119,4 @@ ENV NEXT_PUBLIC_WEBAPP_URL=$NEXT_PUBLIC_WEBAPP_URL \
 RUN scripts/replace-placeholder.sh http://NEXT_PUBLIC_WEBAPP_URL_PLACEHOLDER ${NEXT_PUBLIC_WEBAPP_URL}
 
 EXPOSE 3000
-RUN yarn global add turbo
 CMD ["scripts/start.sh"]
