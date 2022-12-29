@@ -84,6 +84,7 @@ ENV NEXT_PUBLIC_WEBAPP_URL=http://NEXT_PUBLIC_WEBAPP_URL_PLACEHOLDER \
 COPY package.json yarn.lock turbo.json ./
 COPY apps/web ./apps/web
 COPY packages ./packages
+COPY scripts ./scripts
 
 RUN yarn global add turbo && \
     yarn config set network-timeout 1000000000 -g && \
@@ -105,18 +106,19 @@ RUN apt-get update && \
     npm install --global prisma
 
 COPY package.json yarn.lock turbo.json ./
-COPY --from=builder /node_modules ./node_modules
-COPY --from=builder /packages ./packages
-COPY --from=builder /apps/web ./apps/web
-COPY --from=builder /packages/prisma/schema.prisma ./prisma/schema.prisma
-COPY scripts scripts
+COPY --from=builder /calcom/node_modules ./node_modules
+COPY --from=builder /calcom/packages ./packages
+COPY --from=builder /calcom/apps/web ./apps/web
+COPY --from=builder /calcom/packages/prisma/schema.prisma ./prisma/schema.prisma
+COPY --from=builder /calcom/scripts ./scripts
 
 # Save value used during this build stage. If NEXT_PUBLIC_WEBAPP_URL and BUILT_NEXT_PUBLIC_WEBAPP_URL differ at
 # run-time, then start.sh will find/replace static values again.
 ENV NEXT_PUBLIC_WEBAPP_URL=$NEXT_PUBLIC_WEBAPP_URL \
     BUILT_NEXT_PUBLIC_WEBAPP_URL=$NEXT_PUBLIC_WEBAPP_URL
 
-RUN scripts/replace-placeholder.sh http://NEXT_PUBLIC_WEBAPP_URL_PLACEHOLDER ${NEXT_PUBLIC_WEBAPP_URL}
+RUN chmod 777 ./scripts/replace-placeholder.sh
+RUN ./scripts/replace-placeholder.sh http://NEXT_PUBLIC_WEBAPP_URL_PLACEHOLDER ${NEXT_PUBLIC_WEBAPP_URL}
 
 EXPOSE 3000
 CMD ["scripts/start.sh"]

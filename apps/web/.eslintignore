@@ -1,2 +1,14 @@
 node_modules
 prisma/zod
+docs
+public
+.next
+.turbo
+lib
+pages
+scripts
+server
+styles
+test
+@types
+website
