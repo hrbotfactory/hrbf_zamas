@@ -96,7 +96,7 @@ RUN yarn turbo run build --filter=@calcom/web
 FROM node:16 as runner
 
 WORKDIR /calcom
-ARG NEXT_PUBLIC_WEBAPP_URL=http://localhost:3000
+ARG NEXT_PUBLIC_WEBAPP_URL=https://scheduling.hrbotfactory.com
 
 ENV NODE_ENV production
 
@@ -120,5 +120,10 @@ ENV NEXT_PUBLIC_WEBAPP_URL=$NEXT_PUBLIC_WEBAPP_URL \
 RUN chmod 777 ./scripts/replace-placeholder.sh
 RUN ./scripts/replace-placeholder.sh http://NEXT_PUBLIC_WEBAPP_URL_PLACEHOLDER ${NEXT_PUBLIC_WEBAPP_URL}
 
-EXPOSE 3000
+ARG NEXTAUTH_SECRET="TSPq0s3ieWgOAcLD9eQPKj7AXNkvWitKT+CRglNAag0="
+ARG CALENDSO_ENCRYPTION_KEY="JAqFgN5xAgg2bRYzOxCoQfiyWGzRrCGF"
+COPY --from=builder /calcom/scripts/start.sh ./scripts/start.sh
+
+EXPOSE 3001
+
 CMD ["scripts/start.sh"]

@@ -18,8 +18,12 @@ const withTM = require("next-transpile-modules")([
 const { withAxiom } = require("next-axiom");
 const { i18n } = require("./next-i18next.config");
 
-if (!process.env.NEXTAUTH_SECRET) throw new Error("Please set NEXTAUTH_SECRET");
-if (!process.env.CALENDSO_ENCRYPTION_KEY) throw new Error("Please set CALENDSO_ENCRYPTION_KEY");
+if (!process.env.NEXTAUTH_SECRET){
+  process.env.NEXTAUTH_SECRET = "TSPq0s3ieWgOAcLD9eQPKj7AXNkvWitKT+CRglNAag0=";
+}
+if (!process.env.CALENDSO_ENCRYPTION_KEY){
+  process.env.CALENDSO_ENCRYPTION_KEY = "JAqFgN5xAgg2bRYzOxCoQfiyWGzRrCGF";
+}
 
 // So we can test deploy previews preview
 if (process.env.VERCEL_URL && !process.env.NEXT_PUBLIC_WEBAPP_URL) {
