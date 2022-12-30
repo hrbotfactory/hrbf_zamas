@@ -66,9 +66,14 @@ export const AvailabilityTab = () => {
   const { t, i18n } = useLocale();
   const { watch } = useFormContext<FormValues>();
 
-  const scheduleId = watch("schedule");
+  let scheduleId = watch("schedule");
   const { isLoading, data: schedule } = trpc.useQuery(["viewer.availability.schedule", { scheduleId }]);
+  console.log("myLogs", schedule);
 
+  if (!scheduleId) {
+    //@ts-ignore
+    scheduleId = schedule?.schedule.id;
+  }
   const filterDays = (dayNum: number) =>
     //@ts-ignore
     schedule?.schedule.availability.filter((item) => item.days.includes((dayNum + 1) % 7)) || [];
