@@ -138,12 +138,12 @@ const TeamsVideoApiAdapter = (credential: Credential): VideoApiAdapter => {
       }).then(handleErrorsRaw);
 
       const resultObject = JSON.parse(resultString);
-
+      console.log("El result", resultObject);
       return Promise.resolve({
         type: "office365_video",
         id: resultObject.id,
         password: "",
-        url: resultObject.joinUrl,
+        url: resultObject.joinWebUrl || resultObject.joinUrl,
       });
     },
   };
