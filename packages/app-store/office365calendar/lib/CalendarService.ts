@@ -53,16 +53,17 @@ export default class Office365CalendarService implements Calendar {
   }
 
   async createEvent(event: CalendarEvent): Promise<NewCalendarEventType> {
+    console.log("eventFormatted", JSON.stringify(this.translateEvent(event)));
     try {
       const calendarId = event.destinationCalendar?.externalId
         ? `${event.destinationCalendar.externalId}/`
         : "";
-
+      console.log("calendarId", calendarId);
       const response = await this.fetcher(`/me/calendars/${calendarId}events`, {
         method: "POST",
         body: JSON.stringify(this.translateEvent(event)),
       });
-
+      console.log("El response de Microsoft", response);
       return handleErrorsJson(response);
     } catch (error) {
       this.log.error(error);
@@ -219,7 +220,8 @@ export default class Office365CalendarService implements Calendar {
       subject: event.title,
       body: {
         contentType: "HTML",
-        content: getRichDescription(event),
+        content: '',
+        // content: getRichDescription(event),
       },
       start: {
         dateTime: event.startTime,
@@ -237,6 +239,7 @@ export default class Office365CalendarService implements Calendar {
         type: "required",
       })),
       location: event.location ? { displayName: getLocation(event) } : undefined,
+      hideAttendees: true
     };
   };
 

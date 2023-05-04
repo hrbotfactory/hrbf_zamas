@@ -126,7 +126,7 @@ export const getRichDescription = (calEvent: CalendarEvent /*, attendee?: Person
 ${getCancellationReason(calEvent)}
 ${getWhat(calEvent)}
 ${getWhen(calEvent)}
-${getWho(calEvent)}
+// ${getWho(calEvent)}
 ${calEvent.organizer.language.translate("where")}:
 ${getLocation(calEvent)}
 ${getDescription(calEvent)}
