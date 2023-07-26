@@ -236,6 +236,8 @@ async function ensureAvailableUsers(
 }
 
 async function handler(req: NextApiRequest) {
+  const DELAY_MS = 2000; // Le damos un espaciado para evitar que haya problemas de rendimiento
+  await new Promise((resolve) => setTimeout(resolve, DELAY_MS));
   const session = await getSession({ req });
   const currentUser = session?.user;
 
